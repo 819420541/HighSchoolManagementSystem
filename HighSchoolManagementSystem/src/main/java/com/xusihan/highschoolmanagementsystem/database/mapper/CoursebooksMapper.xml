@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.database.mapper.CoursebooksMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Coursebooks" >
+    <id column="CourseBookID" property="coursebookid" jdbcType="INTEGER" />
+    <result column="CourseBookName" property="coursebookname" jdbcType="VARCHAR" />
+    <result column="CourseBookCode" property="coursebookcode" jdbcType="VARCHAR" />
+    <result column="CourseBookDesc" property="coursebookdesc" jdbcType="VARCHAR" />
+    <result column="TheoryPeriod" property="theoryperiod" jdbcType="INTEGER" />
+    <result column="PracticePeriod" property="practiceperiod" jdbcType="INTEGER" />
+    <result column="Knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="Suggestion" property="suggestion" jdbcType="VARCHAR" />
+    <result column="CourseBookState" property="coursebookstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CourseBookID, CourseBookName, CourseBookCode, CourseBookDesc, TheoryPeriod, PracticePeriod, 
+    Knowledge, Suggestion, CourseBookState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.CoursebooksExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coursebooks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from coursebooks
+    where CourseBookID = #{coursebookid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from coursebooks
+    where CourseBookID = #{coursebookid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.CoursebooksExample" >
+    delete from coursebooks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Coursebooks" >
+    insert into coursebooks (CourseBookID, CourseBookName, CourseBookCode, 
+      CourseBookDesc, TheoryPeriod, PracticePeriod, 
+      Knowledge, Suggestion, CourseBookState
+      )
+    values (#{coursebookid,jdbcType=INTEGER}, #{coursebookname,jdbcType=VARCHAR}, #{coursebookcode,jdbcType=VARCHAR}, 
+      #{coursebookdesc,jdbcType=VARCHAR}, #{theoryperiod,jdbcType=INTEGER}, #{practiceperiod,jdbcType=INTEGER}, 
+      #{knowledge,jdbcType=VARCHAR}, #{suggestion,jdbcType=VARCHAR}, #{coursebookstate,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Coursebooks" >
+    insert into coursebooks
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coursebookid != null" >
+        CourseBookID,
+      </if>
+      <if test="coursebookname != null" >
+        CourseBookName,
+      </if>
+      <if test="coursebookcode != null" >
+        CourseBookCode,
+      </if>
+      <if test="coursebookdesc != null" >
+        CourseBookDesc,
+      </if>
+      <if test="theoryperiod != null" >
+        TheoryPeriod,
+      </if>
+      <if test="practiceperiod != null" >
+        PracticePeriod,
+      </if>
+      <if test="knowledge != null" >
+        Knowledge,
+      </if>
+      <if test="suggestion != null" >
+        Suggestion,
+      </if>
+      <if test="coursebookstate != null" >
+        CourseBookState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coursebookid != null" >
+        #{coursebookid,jdbcType=INTEGER},
+      </if>
+      <if test="coursebookname != null" >
+        #{coursebookname,jdbcType=VARCHAR},
+      </if>
+      <if test="coursebookcode != null" >
+        #{coursebookcode,jdbcType=VARCHAR},
+      </if>
+      <if test="coursebookdesc != null" >
+        #{coursebookdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="theoryperiod != null" >
+        #{theoryperiod,jdbcType=INTEGER},
+      </if>
+      <if test="practiceperiod != null" >
+        #{practiceperiod,jdbcType=INTEGER},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestion != null" >
+        #{suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="coursebookstate != null" >
+        #{coursebookstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.CoursebooksExample" resultType="java.lang.Integer" >
+    select count(*) from coursebooks
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update coursebooks
+    <set >
+      <if test="record.coursebookid != null" >
+        CourseBookID = #{record.coursebookid,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursebookname != null" >
+        CourseBookName = #{record.coursebookname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursebookcode != null" >
+        CourseBookCode = #{record.coursebookcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursebookdesc != null" >
+        CourseBookDesc = #{record.coursebookdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.theoryperiod != null" >
+        TheoryPeriod = #{record.theoryperiod,jdbcType=INTEGER},
+      </if>
+      <if test="record.practiceperiod != null" >
+        PracticePeriod = #{record.practiceperiod,jdbcType=INTEGER},
+      </if>
+      <if test="record.knowledge != null" >
+        Knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suggestion != null" >
+        Suggestion = #{record.suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursebookstate != null" >
+        CourseBookState = #{record.coursebookstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update coursebooks
+    set CourseBookID = #{record.coursebookid,jdbcType=INTEGER},
+      CourseBookName = #{record.coursebookname,jdbcType=VARCHAR},
+      CourseBookCode = #{record.coursebookcode,jdbcType=VARCHAR},
+      CourseBookDesc = #{record.coursebookdesc,jdbcType=VARCHAR},
+      TheoryPeriod = #{record.theoryperiod,jdbcType=INTEGER},
+      PracticePeriod = #{record.practiceperiod,jdbcType=INTEGER},
+      Knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      Suggestion = #{record.suggestion,jdbcType=VARCHAR},
+      CourseBookState = #{record.coursebookstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Coursebooks" >
+    update coursebooks
+    <set >
+      <if test="coursebookname != null" >
+        CourseBookName = #{coursebookname,jdbcType=VARCHAR},
+      </if>
+      <if test="coursebookcode != null" >
+        CourseBookCode = #{coursebookcode,jdbcType=VARCHAR},
+      </if>
+      <if test="coursebookdesc != null" >
+        CourseBookDesc = #{coursebookdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="theoryperiod != null" >
+        TheoryPeriod = #{theoryperiod,jdbcType=INTEGER},
+      </if>
+      <if test="practiceperiod != null" >
+        PracticePeriod = #{practiceperiod,jdbcType=INTEGER},
+      </if>
+      <if test="knowledge != null" >
+        Knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestion != null" >
+        Suggestion = #{suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="coursebookstate != null" >
+        CourseBookState = #{coursebookstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CourseBookID = #{coursebookid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Coursebooks" >
+    update coursebooks
+    set CourseBookName = #{coursebookname,jdbcType=VARCHAR},
+      CourseBookCode = #{coursebookcode,jdbcType=VARCHAR},
+      CourseBookDesc = #{coursebookdesc,jdbcType=VARCHAR},
+      TheoryPeriod = #{theoryperiod,jdbcType=INTEGER},
+      PracticePeriod = #{practiceperiod,jdbcType=INTEGER},
+      Knowledge = #{knowledge,jdbcType=VARCHAR},
+      Suggestion = #{suggestion,jdbcType=VARCHAR},
+      CourseBookState = #{coursebookstate,jdbcType=INTEGER}
+    where CourseBookID = #{coursebookid,jdbcType=INTEGER}
+  </update>
+</mapper>

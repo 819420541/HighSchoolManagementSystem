@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.students.mapper.AchievementsMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Achievements" >
+    <id column="AchievementID" property="achievementid" jdbcType="INTEGER" />
+    <result column="ExamPlanID" property="examplanid" jdbcType="INTEGER" />
+    <result column="ExamID" property="examid" jdbcType="INTEGER" />
+    <result column="StudentID" property="studentid" jdbcType="INTEGER" />
+    <result column="Result" property="result" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AchievementID, ExamPlanID, ExamID, StudentID, Result
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.AchievementsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from achievements
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from achievements
+    where AchievementID = #{achievementid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from achievements
+    where AchievementID = #{achievementid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.AchievementsExample" >
+    delete from achievements
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Achievements" >
+    insert into achievements (AchievementID, ExamPlanID, ExamID, 
+      StudentID, Result)
+    values (#{achievementid,jdbcType=INTEGER}, #{examplanid,jdbcType=INTEGER}, #{examid,jdbcType=INTEGER}, 
+      #{studentid,jdbcType=INTEGER}, #{result,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Achievements" >
+    insert into achievements
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="achievementid != null" >
+        AchievementID,
+      </if>
+      <if test="examplanid != null" >
+        ExamPlanID,
+      </if>
+      <if test="examid != null" >
+        ExamID,
+      </if>
+      <if test="studentid != null" >
+        StudentID,
+      </if>
+      <if test="result != null" >
+        Result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="achievementid != null" >
+        #{achievementid,jdbcType=INTEGER},
+      </if>
+      <if test="examplanid != null" >
+        #{examplanid,jdbcType=INTEGER},
+      </if>
+      <if test="examid != null" >
+        #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.AchievementsExample" resultType="java.lang.Integer" >
+    select count(*) from achievements
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update achievements
+    <set >
+      <if test="record.achievementid != null" >
+        AchievementID = #{record.achievementid,jdbcType=INTEGER},
+      </if>
+      <if test="record.examplanid != null" >
+        ExamPlanID = #{record.examplanid,jdbcType=INTEGER},
+      </if>
+      <if test="record.examid != null" >
+        ExamID = #{record.examid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        StudentID = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null" >
+        Result = #{record.result,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update achievements
+    set AchievementID = #{record.achievementid,jdbcType=INTEGER},
+      ExamPlanID = #{record.examplanid,jdbcType=INTEGER},
+      ExamID = #{record.examid,jdbcType=INTEGER},
+      StudentID = #{record.studentid,jdbcType=INTEGER},
+      Result = #{record.result,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Achievements" >
+    update achievements
+    <set >
+      <if test="examplanid != null" >
+        ExamPlanID = #{examplanid,jdbcType=INTEGER},
+      </if>
+      <if test="examid != null" >
+        ExamID = #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        StudentID = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        Result = #{result,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AchievementID = #{achievementid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Achievements" >
+    update achievements
+    set ExamPlanID = #{examplanid,jdbcType=INTEGER},
+      ExamID = #{examid,jdbcType=INTEGER},
+      StudentID = #{studentid,jdbcType=INTEGER},
+      Result = #{result,jdbcType=VARCHAR}
+    where AchievementID = #{achievementid,jdbcType=INTEGER}
+  </update>
+</mapper>

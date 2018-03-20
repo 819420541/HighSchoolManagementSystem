@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.classes.mapper.ActionsMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Actions" >
+    <id column="ActionId" property="actionid" jdbcType="INTEGER" />
+    <result column="ClassID" property="classid" jdbcType="INTEGER" />
+    <result column="ActionName" property="actionname" jdbcType="VARCHAR" />
+    <result column="ActionDate" property="actiondate" jdbcType="TIMESTAMP" />
+    <result column="BeginTime" property="begintime" jdbcType="VARCHAR" />
+    <result column="EndTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="Purpose" property="purpose" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ActionId, ClassID, ActionName, ActionDate, BeginTime, EndTime, Purpose
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.ActionsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from actions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from actions
+    where ActionId = #{actionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from actions
+    where ActionId = #{actionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ActionsExample" >
+    delete from actions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Actions" >
+    insert into actions (ActionId, ClassID, ActionName, 
+      ActionDate, BeginTime, EndTime, 
+      Purpose)
+    values (#{actionid,jdbcType=INTEGER}, #{classid,jdbcType=INTEGER}, #{actionname,jdbcType=VARCHAR}, 
+      #{actiondate,jdbcType=TIMESTAMP}, #{begintime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{purpose,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Actions" >
+    insert into actions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actionid != null" >
+        ActionId,
+      </if>
+      <if test="classid != null" >
+        ClassID,
+      </if>
+      <if test="actionname != null" >
+        ActionName,
+      </if>
+      <if test="actiondate != null" >
+        ActionDate,
+      </if>
+      <if test="begintime != null" >
+        BeginTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="purpose != null" >
+        Purpose,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actionid != null" >
+        #{actionid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="actionname != null" >
+        #{actionname,jdbcType=VARCHAR},
+      </if>
+      <if test="actiondate != null" >
+        #{actiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ActionsExample" resultType="java.lang.Integer" >
+    select count(*) from actions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update actions
+    <set >
+      <if test="record.actionid != null" >
+        ActionId = #{record.actionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.actionname != null" >
+        ActionName = #{record.actionname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actiondate != null" >
+        ActionDate = #{record.actiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.begintime != null" >
+        BeginTime = #{record.begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null" >
+        EndTime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        Purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update actions
+    set ActionId = #{record.actionid,jdbcType=INTEGER},
+      ClassID = #{record.classid,jdbcType=INTEGER},
+      ActionName = #{record.actionname,jdbcType=VARCHAR},
+      ActionDate = #{record.actiondate,jdbcType=TIMESTAMP},
+      BeginTime = #{record.begintime,jdbcType=VARCHAR},
+      EndTime = #{record.endtime,jdbcType=VARCHAR},
+      Purpose = #{record.purpose,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Actions" >
+    update actions
+    <set >
+      <if test="classid != null" >
+        ClassID = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="actionname != null" >
+        ActionName = #{actionname,jdbcType=VARCHAR},
+      </if>
+      <if test="actiondate != null" >
+        ActionDate = #{actiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begintime != null" >
+        BeginTime = #{begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        Purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ActionId = #{actionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Actions" >
+    update actions
+    set ClassID = #{classid,jdbcType=INTEGER},
+      ActionName = #{actionname,jdbcType=VARCHAR},
+      ActionDate = #{actiondate,jdbcType=TIMESTAMP},
+      BeginTime = #{begintime,jdbcType=VARCHAR},
+      EndTime = #{endtime,jdbcType=VARCHAR},
+      Purpose = #{purpose,jdbcType=VARCHAR}
+    where ActionId = #{actionid,jdbcType=INTEGER}
+  </update>
+</mapper>

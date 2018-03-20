@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.exams.mapper.ExamplansMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Examplans" >
+    <id column="ExamPlanID" property="examplanid" jdbcType="INTEGER" />
+    <result column="ExamPlanName" property="examplanname" jdbcType="VARCHAR" />
+    <result column="ExamID" property="examid" jdbcType="INTEGER" />
+    <result column="ClassID" property="classid" jdbcType="INTEGER" />
+    <result column="ExamDate" property="examdate" jdbcType="TIMESTAMP" />
+    <result column="ExamStartTime" property="examstarttime" jdbcType="VARCHAR" />
+    <result column="ExamEndTime" property="examendtime" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ExamPlanState" property="examplanstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ExamPlanID, ExamPlanName, ExamID, ClassID, ExamDate, ExamStartTime, ExamEndTime, 
+    Remark, ExamPlanState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.ExamplansExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examplans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from examplans
+    where ExamPlanID = #{examplanid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examplans
+    where ExamPlanID = #{examplanid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ExamplansExample" >
+    delete from examplans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Examplans" >
+    insert into examplans (ExamPlanID, ExamPlanName, ExamID, 
+      ClassID, ExamDate, ExamStartTime, 
+      ExamEndTime, Remark, ExamPlanState
+      )
+    values (#{examplanid,jdbcType=INTEGER}, #{examplanname,jdbcType=VARCHAR}, #{examid,jdbcType=INTEGER}, 
+      #{classid,jdbcType=INTEGER}, #{examdate,jdbcType=TIMESTAMP}, #{examstarttime,jdbcType=VARCHAR}, 
+      #{examendtime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{examplanstate,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Examplans" >
+    insert into examplans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examplanid != null" >
+        ExamPlanID,
+      </if>
+      <if test="examplanname != null" >
+        ExamPlanName,
+      </if>
+      <if test="examid != null" >
+        ExamID,
+      </if>
+      <if test="classid != null" >
+        ClassID,
+      </if>
+      <if test="examdate != null" >
+        ExamDate,
+      </if>
+      <if test="examstarttime != null" >
+        ExamStartTime,
+      </if>
+      <if test="examendtime != null" >
+        ExamEndTime,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="examplanstate != null" >
+        ExamPlanState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examplanid != null" >
+        #{examplanid,jdbcType=INTEGER},
+      </if>
+      <if test="examplanname != null" >
+        #{examplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null" >
+        #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="examdate != null" >
+        #{examdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examstarttime != null" >
+        #{examstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="examendtime != null" >
+        #{examendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="examplanstate != null" >
+        #{examplanstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ExamplansExample" resultType="java.lang.Integer" >
+    select count(*) from examplans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examplans
+    <set >
+      <if test="record.examplanid != null" >
+        ExamPlanID = #{record.examplanid,jdbcType=INTEGER},
+      </if>
+      <if test="record.examplanname != null" >
+        ExamPlanName = #{record.examplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examid != null" >
+        ExamID = #{record.examid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.examdate != null" >
+        ExamDate = #{record.examdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.examstarttime != null" >
+        ExamStartTime = #{record.examstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examendtime != null" >
+        ExamEndTime = #{record.examendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examplanstate != null" >
+        ExamPlanState = #{record.examplanstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examplans
+    set ExamPlanID = #{record.examplanid,jdbcType=INTEGER},
+      ExamPlanName = #{record.examplanname,jdbcType=VARCHAR},
+      ExamID = #{record.examid,jdbcType=INTEGER},
+      ClassID = #{record.classid,jdbcType=INTEGER},
+      ExamDate = #{record.examdate,jdbcType=TIMESTAMP},
+      ExamStartTime = #{record.examstarttime,jdbcType=VARCHAR},
+      ExamEndTime = #{record.examendtime,jdbcType=VARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      ExamPlanState = #{record.examplanstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Examplans" >
+    update examplans
+    <set >
+      <if test="examplanname != null" >
+        ExamPlanName = #{examplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null" >
+        ExamID = #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null" >
+        ClassID = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="examdate != null" >
+        ExamDate = #{examdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examstarttime != null" >
+        ExamStartTime = #{examstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="examendtime != null" >
+        ExamEndTime = #{examendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="examplanstate != null" >
+        ExamPlanState = #{examplanstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ExamPlanID = #{examplanid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Examplans" >
+    update examplans
+    set ExamPlanName = #{examplanname,jdbcType=VARCHAR},
+      ExamID = #{examid,jdbcType=INTEGER},
+      ClassID = #{classid,jdbcType=INTEGER},
+      ExamDate = #{examdate,jdbcType=TIMESTAMP},
+      ExamStartTime = #{examstarttime,jdbcType=VARCHAR},
+      ExamEndTime = #{examendtime,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      ExamPlanState = #{examplanstate,jdbcType=INTEGER}
+    where ExamPlanID = #{examplanid,jdbcType=INTEGER}
+  </update>
+</mapper>

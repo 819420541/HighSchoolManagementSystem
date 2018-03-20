@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <!-- 自动扫描注解所在的包 -->
+    <context:component-scan base-package="com.xusihan.highschoolmanagementsystem"></context:component-scan>
+    	
+    <!-- 使用注解提交注解处理器适配器和注解映射器 -->	
+    <mvc:annotation-driven  conversion-service="conversionServiceFactoryBean" validator="validator"/>	
+    	
+	 <!--配置视图解析器 -->
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 	<property name="prefix" value="/view/"></property>
+	 	<property name="suffix" value=".jsp"></property>
+	 </bean>
+	 
+	 <!-- 自定义参数绑定 -->
+	 <bean id="conversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	 	<property name="converters">
+	 		<list>
+	 			<bean class="com.xusihan.highschoolmanagementsystem.converter.CustomDateConverter"></bean>
+	 		</list>
+	 	</property>
+	 </bean> 
+	 
+	 
+	 <!-- 校验器 -->
+	 <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+	 	<property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+	 	<property name="validationMessageSource" ref="messageSource"></property>
+	 </bean>
+	 
+	 <!-- 校验错误信息的配置文件 -->
+	 <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	 	<!-- 加载本地的文件 -->
+	 	<!-- 资源文件名 -->
+	 	<property name="basenames">
+	 		<list>
+	 			<value>
+	 				classpath:CustomValidationMessage
+	 			</value>
+	 		</list>
+	 	</property>
+	 	<!-- 资源文件的编码集 -->
+	 	<property name="fileEncodings" value="UTF-8"></property>
+	 	<!-- 对资源文件的缓存时间 -->
+	 	<property name="cacheSeconds" value="120"></property>
+	 </bean>
+	 
+	 
+	 <!-- 全局异常处理器 -->
+	<!--  <bean class="com.guigu.ssm.exception.CustomExceptionResolver"></bean> -->
+	 
+	 
+	 <!-- 配置文件上传的解析器 -->
+	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 	<property name="maxUploadSize" value="5242880"></property>
+	 </bean>
+	 
+	 
+	 <!--  拦截器-->
+	 <!-- <mvc:interceptors>
+	 	<mvc:interceptor>
+	 		<mvc:mapping path="/**"/>
+	 		<bean class="com.guigu.ssm.interceptor.LoginInterceptor"></bean>
+	 	</mvc:interceptor> 
+	 </mvc:interceptors> -->
+
+ </beans>

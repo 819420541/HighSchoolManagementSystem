@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.database.mapper.ProjectsMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Projects" >
+    <id column="ProjectID" property="projectid" jdbcType="INTEGER" />
+    <result column="ProjectName" property="projectname" jdbcType="VARCHAR" />
+    <result column="ProjectPeriod" property="projectperiod" jdbcType="INTEGER" />
+    <result column="CodeMeasure" property="codemeasure" jdbcType="INTEGER" />
+    <result column="ProjectLevel" property="projectlevel" jdbcType="VARCHAR" />
+    <result column="ProjectDesc" property="projectdesc" jdbcType="VARCHAR" />
+    <result column="Difficulty" property="difficulty" jdbcType="VARCHAR" />
+    <result column="Target" property="target" jdbcType="VARCHAR" />
+    <result column="Technique" property="technique" jdbcType="VARCHAR" />
+    <result column="ProjectDataBase" property="projectdatabase" jdbcType="VARCHAR" />
+    <result column="Conditions" property="conditions" jdbcType="VARCHAR" />
+    <result column="Features" property="features" jdbcType="VARCHAR" />
+    <result column="SkillDifficulty" property="skilldifficulty" jdbcType="VARCHAR" />
+    <result column="SkillKeynote" property="skillkeynote" jdbcType="VARCHAR" />
+    <result column="Suggestion" property="suggestion" jdbcType="VARCHAR" />
+    <result column="ProjectState" property="projectstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ProjectID, ProjectName, ProjectPeriod, CodeMeasure, ProjectLevel, ProjectDesc, Difficulty, 
+    Target, Technique, ProjectDataBase, Conditions, Features, SkillDifficulty, SkillKeynote, 
+    Suggestion, ProjectState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.ProjectsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projects
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from projects
+    where ProjectID = #{projectid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from projects
+    where ProjectID = #{projectid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ProjectsExample" >
+    delete from projects
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Projects" >
+    insert into projects (ProjectID, ProjectName, ProjectPeriod, 
+      CodeMeasure, ProjectLevel, ProjectDesc, 
+      Difficulty, Target, Technique, 
+      ProjectDataBase, Conditions, Features, 
+      SkillDifficulty, SkillKeynote, Suggestion, 
+      ProjectState)
+    values (#{projectid,jdbcType=INTEGER}, #{projectname,jdbcType=VARCHAR}, #{projectperiod,jdbcType=INTEGER}, 
+      #{codemeasure,jdbcType=INTEGER}, #{projectlevel,jdbcType=VARCHAR}, #{projectdesc,jdbcType=VARCHAR}, 
+      #{difficulty,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, #{technique,jdbcType=VARCHAR}, 
+      #{projectdatabase,jdbcType=VARCHAR}, #{conditions,jdbcType=VARCHAR}, #{features,jdbcType=VARCHAR}, 
+      #{skilldifficulty,jdbcType=VARCHAR}, #{skillkeynote,jdbcType=VARCHAR}, #{suggestion,jdbcType=VARCHAR}, 
+      #{projectstate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Projects" >
+    insert into projects
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectid != null" >
+        ProjectID,
+      </if>
+      <if test="projectname != null" >
+        ProjectName,
+      </if>
+      <if test="projectperiod != null" >
+        ProjectPeriod,
+      </if>
+      <if test="codemeasure != null" >
+        CodeMeasure,
+      </if>
+      <if test="projectlevel != null" >
+        ProjectLevel,
+      </if>
+      <if test="projectdesc != null" >
+        ProjectDesc,
+      </if>
+      <if test="difficulty != null" >
+        Difficulty,
+      </if>
+      <if test="target != null" >
+        Target,
+      </if>
+      <if test="technique != null" >
+        Technique,
+      </if>
+      <if test="projectdatabase != null" >
+        ProjectDataBase,
+      </if>
+      <if test="conditions != null" >
+        Conditions,
+      </if>
+      <if test="features != null" >
+        Features,
+      </if>
+      <if test="skilldifficulty != null" >
+        SkillDifficulty,
+      </if>
+      <if test="skillkeynote != null" >
+        SkillKeynote,
+      </if>
+      <if test="suggestion != null" >
+        Suggestion,
+      </if>
+      <if test="projectstate != null" >
+        ProjectState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectid != null" >
+        #{projectid,jdbcType=INTEGER},
+      </if>
+      <if test="projectname != null" >
+        #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="projectperiod != null" >
+        #{projectperiod,jdbcType=INTEGER},
+      </if>
+      <if test="codemeasure != null" >
+        #{codemeasure,jdbcType=INTEGER},
+      </if>
+      <if test="projectlevel != null" >
+        #{projectlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="projectdesc != null" >
+        #{projectdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="technique != null" >
+        #{technique,jdbcType=VARCHAR},
+      </if>
+      <if test="projectdatabase != null" >
+        #{projectdatabase,jdbcType=VARCHAR},
+      </if>
+      <if test="conditions != null" >
+        #{conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="features != null" >
+        #{features,jdbcType=VARCHAR},
+      </if>
+      <if test="skilldifficulty != null" >
+        #{skilldifficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="skillkeynote != null" >
+        #{skillkeynote,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestion != null" >
+        #{suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="projectstate != null" >
+        #{projectstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ProjectsExample" resultType="java.lang.Integer" >
+    select count(*) from projects
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update projects
+    <set >
+      <if test="record.projectid != null" >
+        ProjectID = #{record.projectid,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectname != null" >
+        ProjectName = #{record.projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectperiod != null" >
+        ProjectPeriod = #{record.projectperiod,jdbcType=INTEGER},
+      </if>
+      <if test="record.codemeasure != null" >
+        CodeMeasure = #{record.codemeasure,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectlevel != null" >
+        ProjectLevel = #{record.projectlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectdesc != null" >
+        ProjectDesc = #{record.projectdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.difficulty != null" >
+        Difficulty = #{record.difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.target != null" >
+        Target = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.technique != null" >
+        Technique = #{record.technique,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectdatabase != null" >
+        ProjectDataBase = #{record.projectdatabase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conditions != null" >
+        Conditions = #{record.conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.features != null" >
+        Features = #{record.features,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skilldifficulty != null" >
+        SkillDifficulty = #{record.skilldifficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skillkeynote != null" >
+        SkillKeynote = #{record.skillkeynote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suggestion != null" >
+        Suggestion = #{record.suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectstate != null" >
+        ProjectState = #{record.projectstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update projects
+    set ProjectID = #{record.projectid,jdbcType=INTEGER},
+      ProjectName = #{record.projectname,jdbcType=VARCHAR},
+      ProjectPeriod = #{record.projectperiod,jdbcType=INTEGER},
+      CodeMeasure = #{record.codemeasure,jdbcType=INTEGER},
+      ProjectLevel = #{record.projectlevel,jdbcType=VARCHAR},
+      ProjectDesc = #{record.projectdesc,jdbcType=VARCHAR},
+      Difficulty = #{record.difficulty,jdbcType=VARCHAR},
+      Target = #{record.target,jdbcType=VARCHAR},
+      Technique = #{record.technique,jdbcType=VARCHAR},
+      ProjectDataBase = #{record.projectdatabase,jdbcType=VARCHAR},
+      Conditions = #{record.conditions,jdbcType=VARCHAR},
+      Features = #{record.features,jdbcType=VARCHAR},
+      SkillDifficulty = #{record.skilldifficulty,jdbcType=VARCHAR},
+      SkillKeynote = #{record.skillkeynote,jdbcType=VARCHAR},
+      Suggestion = #{record.suggestion,jdbcType=VARCHAR},
+      ProjectState = #{record.projectstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Projects" >
+    update projects
+    <set >
+      <if test="projectname != null" >
+        ProjectName = #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="projectperiod != null" >
+        ProjectPeriod = #{projectperiod,jdbcType=INTEGER},
+      </if>
+      <if test="codemeasure != null" >
+        CodeMeasure = #{codemeasure,jdbcType=INTEGER},
+      </if>
+      <if test="projectlevel != null" >
+        ProjectLevel = #{projectlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="projectdesc != null" >
+        ProjectDesc = #{projectdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        Difficulty = #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        Target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="technique != null" >
+        Technique = #{technique,jdbcType=VARCHAR},
+      </if>
+      <if test="projectdatabase != null" >
+        ProjectDataBase = #{projectdatabase,jdbcType=VARCHAR},
+      </if>
+      <if test="conditions != null" >
+        Conditions = #{conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="features != null" >
+        Features = #{features,jdbcType=VARCHAR},
+      </if>
+      <if test="skilldifficulty != null" >
+        SkillDifficulty = #{skilldifficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="skillkeynote != null" >
+        SkillKeynote = #{skillkeynote,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestion != null" >
+        Suggestion = #{suggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="projectstate != null" >
+        ProjectState = #{projectstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ProjectID = #{projectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Projects" >
+    update projects
+    set ProjectName = #{projectname,jdbcType=VARCHAR},
+      ProjectPeriod = #{projectperiod,jdbcType=INTEGER},
+      CodeMeasure = #{codemeasure,jdbcType=INTEGER},
+      ProjectLevel = #{projectlevel,jdbcType=VARCHAR},
+      ProjectDesc = #{projectdesc,jdbcType=VARCHAR},
+      Difficulty = #{difficulty,jdbcType=VARCHAR},
+      Target = #{target,jdbcType=VARCHAR},
+      Technique = #{technique,jdbcType=VARCHAR},
+      ProjectDataBase = #{projectdatabase,jdbcType=VARCHAR},
+      Conditions = #{conditions,jdbcType=VARCHAR},
+      Features = #{features,jdbcType=VARCHAR},
+      SkillDifficulty = #{skilldifficulty,jdbcType=VARCHAR},
+      SkillKeynote = #{skillkeynote,jdbcType=VARCHAR},
+      Suggestion = #{suggestion,jdbcType=VARCHAR},
+      ProjectState = #{projectstate,jdbcType=INTEGER}
+    where ProjectID = #{projectid,jdbcType=INTEGER}
+  </update>
+</mapper>

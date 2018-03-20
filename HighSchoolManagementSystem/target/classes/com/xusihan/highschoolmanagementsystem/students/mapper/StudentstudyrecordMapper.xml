@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.students.mapper.StudentstudyrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Studentstudyrecord" >
+    <id column="StudyRecordID" property="studyrecordid" jdbcType="INTEGER" />
+    <result column="StudentID" property="studentid" jdbcType="INTEGER" />
+    <result column="ComputerLevel" property="computerlevel" jdbcType="VARCHAR" />
+    <result column="EnglishLevel" property="englishlevel" jdbcType="VARCHAR" />
+    <result column="GraduateSchool" property="graduateschool" jdbcType="VARCHAR" />
+    <result column="GraduteTime" property="gradutetime" jdbcType="TIMESTAMP" />
+    <result column="Certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="JobCompany" property="jobcompany" jdbcType="VARCHAR" />
+    <result column="JobCourse" property="jobcourse" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    StudyRecordID, StudentID, ComputerLevel, EnglishLevel, GraduateSchool, GraduteTime, 
+    Certificate, JobCompany, JobCourse
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentstudyrecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from studentstudyrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from studentstudyrecord
+    where StudyRecordID = #{studyrecordid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from studentstudyrecord
+    where StudyRecordID = #{studyrecordid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentstudyrecordExample" >
+    delete from studentstudyrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentstudyrecord" >
+    insert into studentstudyrecord (StudyRecordID, StudentID, ComputerLevel, 
+      EnglishLevel, GraduateSchool, GraduteTime, 
+      Certificate, JobCompany, JobCourse
+      )
+    values (#{studyrecordid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{computerlevel,jdbcType=VARCHAR}, 
+      #{englishlevel,jdbcType=VARCHAR}, #{graduateschool,jdbcType=VARCHAR}, #{gradutetime,jdbcType=TIMESTAMP}, 
+      #{certificate,jdbcType=VARCHAR}, #{jobcompany,jdbcType=VARCHAR}, #{jobcourse,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentstudyrecord" >
+    insert into studentstudyrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studyrecordid != null" >
+        StudyRecordID,
+      </if>
+      <if test="studentid != null" >
+        StudentID,
+      </if>
+      <if test="computerlevel != null" >
+        ComputerLevel,
+      </if>
+      <if test="englishlevel != null" >
+        EnglishLevel,
+      </if>
+      <if test="graduateschool != null" >
+        GraduateSchool,
+      </if>
+      <if test="gradutetime != null" >
+        GraduteTime,
+      </if>
+      <if test="certificate != null" >
+        Certificate,
+      </if>
+      <if test="jobcompany != null" >
+        JobCompany,
+      </if>
+      <if test="jobcourse != null" >
+        JobCourse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studyrecordid != null" >
+        #{studyrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="computerlevel != null" >
+        #{computerlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="englishlevel != null" >
+        #{englishlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null" >
+        #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="gradutetime != null" >
+        #{gradutetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcompany != null" >
+        #{jobcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcourse != null" >
+        #{jobcourse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentstudyrecordExample" resultType="java.lang.Integer" >
+    select count(*) from studentstudyrecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update studentstudyrecord
+    <set >
+      <if test="record.studyrecordid != null" >
+        StudyRecordID = #{record.studyrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        StudentID = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.computerlevel != null" >
+        ComputerLevel = #{record.computerlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.englishlevel != null" >
+        EnglishLevel = #{record.englishlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduateschool != null" >
+        GraduateSchool = #{record.graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradutetime != null" >
+        GraduteTime = #{record.gradutetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certificate != null" >
+        Certificate = #{record.certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobcompany != null" >
+        JobCompany = #{record.jobcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobcourse != null" >
+        JobCourse = #{record.jobcourse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update studentstudyrecord
+    set StudyRecordID = #{record.studyrecordid,jdbcType=INTEGER},
+      StudentID = #{record.studentid,jdbcType=INTEGER},
+      ComputerLevel = #{record.computerlevel,jdbcType=VARCHAR},
+      EnglishLevel = #{record.englishlevel,jdbcType=VARCHAR},
+      GraduateSchool = #{record.graduateschool,jdbcType=VARCHAR},
+      GraduteTime = #{record.gradutetime,jdbcType=TIMESTAMP},
+      Certificate = #{record.certificate,jdbcType=VARCHAR},
+      JobCompany = #{record.jobcompany,jdbcType=VARCHAR},
+      JobCourse = #{record.jobcourse,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentstudyrecord" >
+    update studentstudyrecord
+    <set >
+      <if test="studentid != null" >
+        StudentID = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="computerlevel != null" >
+        ComputerLevel = #{computerlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="englishlevel != null" >
+        EnglishLevel = #{englishlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null" >
+        GraduateSchool = #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="gradutetime != null" >
+        GraduteTime = #{gradutetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certificate != null" >
+        Certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcompany != null" >
+        JobCompany = #{jobcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcourse != null" >
+        JobCourse = #{jobcourse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where StudyRecordID = #{studyrecordid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentstudyrecord" >
+    update studentstudyrecord
+    set StudentID = #{studentid,jdbcType=INTEGER},
+      ComputerLevel = #{computerlevel,jdbcType=VARCHAR},
+      EnglishLevel = #{englishlevel,jdbcType=VARCHAR},
+      GraduateSchool = #{graduateschool,jdbcType=VARCHAR},
+      GraduteTime = #{gradutetime,jdbcType=TIMESTAMP},
+      Certificate = #{certificate,jdbcType=VARCHAR},
+      JobCompany = #{jobcompany,jdbcType=VARCHAR},
+      JobCourse = #{jobcourse,jdbcType=VARCHAR}
+    where StudyRecordID = #{studyrecordid,jdbcType=INTEGER}
+  </update>
+</mapper>

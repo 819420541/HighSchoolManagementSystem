@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.exams.mapper.ExamtypesMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Examtypes" >
+    <id column="ExamTypeID" property="examtypeid" jdbcType="INTEGER" />
+    <result column="SchoolID" property="schoolid" jdbcType="INTEGER" />
+    <result column="ExamTypeName" property="examtypename" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ExamTypeState" property="examtypestate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ExamTypeID, SchoolID, ExamTypeName, remark, ExamTypeState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.ExamtypesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examtypes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from examtypes
+    where ExamTypeID = #{examtypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examtypes
+    where ExamTypeID = #{examtypeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ExamtypesExample" >
+    delete from examtypes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Examtypes" >
+    insert into examtypes (ExamTypeID, SchoolID, ExamTypeName, 
+      remark, ExamTypeState)
+    values (#{examtypeid,jdbcType=INTEGER}, #{schoolid,jdbcType=INTEGER}, #{examtypename,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{examtypestate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Examtypes" >
+    insert into examtypes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examtypeid != null" >
+        ExamTypeID,
+      </if>
+      <if test="schoolid != null" >
+        SchoolID,
+      </if>
+      <if test="examtypename != null" >
+        ExamTypeName,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="examtypestate != null" >
+        ExamTypeState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examtypeid != null" >
+        #{examtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="examtypename != null" >
+        #{examtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="examtypestate != null" >
+        #{examtypestate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.ExamtypesExample" resultType="java.lang.Integer" >
+    select count(*) from examtypes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examtypes
+    <set >
+      <if test="record.examtypeid != null" >
+        ExamTypeID = #{record.examtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolid != null" >
+        SchoolID = #{record.schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="record.examtypename != null" >
+        ExamTypeName = #{record.examtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examtypestate != null" >
+        ExamTypeState = #{record.examtypestate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examtypes
+    set ExamTypeID = #{record.examtypeid,jdbcType=INTEGER},
+      SchoolID = #{record.schoolid,jdbcType=INTEGER},
+      ExamTypeName = #{record.examtypename,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      ExamTypeState = #{record.examtypestate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Examtypes" >
+    update examtypes
+    <set >
+      <if test="schoolid != null" >
+        SchoolID = #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="examtypename != null" >
+        ExamTypeName = #{examtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="examtypestate != null" >
+        ExamTypeState = #{examtypestate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ExamTypeID = #{examtypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Examtypes" >
+    update examtypes
+    set SchoolID = #{schoolid,jdbcType=INTEGER},
+      ExamTypeName = #{examtypename,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      ExamTypeState = #{examtypestate,jdbcType=INTEGER}
+    where ExamTypeID = #{examtypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

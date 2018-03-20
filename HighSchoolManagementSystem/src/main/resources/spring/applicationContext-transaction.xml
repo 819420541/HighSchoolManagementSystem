@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- 事务管理器 -->
+	<!-- 	
+		对MyBatis操作数据库事务进行控制
+	 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+	<!-- 自定义通知和aop -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 自定义传播行为 -->
+			<tx:method name="save*" 	propagation="REQUIRED"/>
+			<tx:method name="delete*" 	propagation="REQUIRED"/>
+			<tx:method name="insert*" 	propagation="REQUIRED"/>
+			<tx:method name="update*" 	propagation="REQUIRED"/>
+			<tx:method name="find*" 	propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="get*" 		propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="select*" 	propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- aop -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.xusihan.highschoolmanagementsystem..service..impl.*.*(..))"/>
+	</aop:config>
+ </beans>

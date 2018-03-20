@@ -1,0 +1,29 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="${pageContext.request.contextPath}/resource/assets/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/assets/css/ace.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/assets/css/ace-rtl.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/assets/css/ace-skins.min.css" />
+
+<script src="${pageContext.request.contextPath}/resource/assets/js/ace-extra.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resource/assets/jquery.min.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resource/js/jquery.min.js"></script>
+
+<%-- <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resource/assets/js/typeahead-bs2.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/resource/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/jquery.slimscroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/jquery.easy-pie-chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/jquery.sparkline.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/flot/jquery.flot.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/flot/jquery.flot.pie.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/flot/jquery.flot.resize.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/ace-elements.min.js"></script>
+<script src="${pageContext.request.contextPath}/resource/assets/js/ace.min.js"></script>
+
+
+<script src="${pageContext.request.contextPath}/resource/My97DatePicker/WdatePicker.js"></script>
+

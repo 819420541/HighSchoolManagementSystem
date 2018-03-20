@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.database.mapper.SemestersMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Semesters" >
+    <id column="SemesterID" property="semesterid" jdbcType="INTEGER" />
+    <result column="SemesterName" property="semestername" jdbcType="VARCHAR" />
+    <result column="SemesterState" property="semesterstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SemesterID, SemesterName, SemesterState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.SemestersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from semesters
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from semesters
+    where SemesterID = #{semesterid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from semesters
+    where SemesterID = #{semesterid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.SemestersExample" >
+    delete from semesters
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Semesters" >
+    insert into semesters (SemesterID, SemesterName, SemesterState
+      )
+    values (#{semesterid,jdbcType=INTEGER}, #{semestername,jdbcType=VARCHAR}, #{semesterstate,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Semesters" >
+    insert into semesters
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="semesterid != null" >
+        SemesterID,
+      </if>
+      <if test="semestername != null" >
+        SemesterName,
+      </if>
+      <if test="semesterstate != null" >
+        SemesterState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="semesterid != null" >
+        #{semesterid,jdbcType=INTEGER},
+      </if>
+      <if test="semestername != null" >
+        #{semestername,jdbcType=VARCHAR},
+      </if>
+      <if test="semesterstate != null" >
+        #{semesterstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.SemestersExample" resultType="java.lang.Integer" >
+    select count(*) from semesters
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update semesters
+    <set >
+      <if test="record.semesterid != null" >
+        SemesterID = #{record.semesterid,jdbcType=INTEGER},
+      </if>
+      <if test="record.semestername != null" >
+        SemesterName = #{record.semestername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.semesterstate != null" >
+        SemesterState = #{record.semesterstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update semesters
+    set SemesterID = #{record.semesterid,jdbcType=INTEGER},
+      SemesterName = #{record.semestername,jdbcType=VARCHAR},
+      SemesterState = #{record.semesterstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Semesters" >
+    update semesters
+    <set >
+      <if test="semestername != null" >
+        SemesterName = #{semestername,jdbcType=VARCHAR},
+      </if>
+      <if test="semesterstate != null" >
+        SemesterState = #{semesterstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SemesterID = #{semesterid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Semesters" >
+    update semesters
+    set SemesterName = #{semestername,jdbcType=VARCHAR},
+      SemesterState = #{semesterstate,jdbcType=INTEGER}
+    where SemesterID = #{semesterid,jdbcType=INTEGER}
+  </update>
+</mapper>

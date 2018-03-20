@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.students.mapper.StudentcontactMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Studentcontact" >
+    <id column="StudentContactID" property="studentcontactid" jdbcType="INTEGER" />
+    <result column="StudentID" property="studentid" jdbcType="INTEGER" />
+    <result column="Homeaddress" property="homeaddress" jdbcType="VARCHAR" />
+    <result column="Family" property="family" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Mobilephone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Others" property="others" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    StudentContactID, StudentID, Homeaddress, Family, Phone, Mobilephone, Email, Others
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentcontactExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from studentcontact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from studentcontact
+    where StudentContactID = #{studentcontactid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from studentcontact
+    where StudentContactID = #{studentcontactid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentcontactExample" >
+    delete from studentcontact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentcontact" >
+    insert into studentcontact (StudentContactID, StudentID, Homeaddress, 
+      Family, Phone, Mobilephone, 
+      Email, Others)
+    values (#{studentcontactid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{homeaddress,jdbcType=VARCHAR}, 
+      #{family,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{mobilephone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{others,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentcontact" >
+    insert into studentcontact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentcontactid != null" >
+        StudentContactID,
+      </if>
+      <if test="studentid != null" >
+        StudentID,
+      </if>
+      <if test="homeaddress != null" >
+        Homeaddress,
+      </if>
+      <if test="family != null" >
+        Family,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="mobilephone != null" >
+        Mobilephone,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="others != null" >
+        Others,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentcontactid != null" >
+        #{studentcontactid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="homeaddress != null" >
+        #{homeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="family != null" >
+        #{family,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="others != null" >
+        #{others,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentcontactExample" resultType="java.lang.Integer" >
+    select count(*) from studentcontact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update studentcontact
+    <set >
+      <if test="record.studentcontactid != null" >
+        StudentContactID = #{record.studentcontactid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        StudentID = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.homeaddress != null" >
+        Homeaddress = #{record.homeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.family != null" >
+        Family = #{record.family,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephone != null" >
+        Mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.others != null" >
+        Others = #{record.others,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update studentcontact
+    set StudentContactID = #{record.studentcontactid,jdbcType=INTEGER},
+      StudentID = #{record.studentid,jdbcType=INTEGER},
+      Homeaddress = #{record.homeaddress,jdbcType=VARCHAR},
+      Family = #{record.family,jdbcType=VARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      Others = #{record.others,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentcontact" >
+    update studentcontact
+    <set >
+      <if test="studentid != null" >
+        StudentID = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="homeaddress != null" >
+        Homeaddress = #{homeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="family != null" >
+        Family = #{family,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        Mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="others != null" >
+        Others = #{others,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where StudentContactID = #{studentcontactid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentcontact" >
+    update studentcontact
+    set StudentID = #{studentid,jdbcType=INTEGER},
+      Homeaddress = #{homeaddress,jdbcType=VARCHAR},
+      Family = #{family,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      Others = #{others,jdbcType=VARCHAR}
+    where StudentContactID = #{studentcontactid,jdbcType=INTEGER}
+  </update>
+</mapper>

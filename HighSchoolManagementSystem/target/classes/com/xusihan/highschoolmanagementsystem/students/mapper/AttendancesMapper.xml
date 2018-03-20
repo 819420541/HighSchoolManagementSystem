@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.students.mapper.AttendancesMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Attendances" >
+    <id column="AttendanceID" property="attendanceid" jdbcType="INTEGER" />
+    <result column="StudentID" property="studentid" jdbcType="INTEGER" />
+    <result column="ClassID" property="classid" jdbcType="INTEGER" />
+    <result column="SemesterID" property="semesterid" jdbcType="INTEGER" />
+    <result column="CourseID" property="courseid" jdbcType="INTEGER" />
+    <result column="Situation" property="situation" jdbcType="VARCHAR" />
+    <result column="AttendanceTime" property="attendancetime" jdbcType="TIMESTAMP" />
+    <result column="AttendanceDesc" property="attendancedesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AttendanceID, StudentID, ClassID, SemesterID, CourseID, Situation, AttendanceTime, 
+    AttendanceDesc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.AttendancesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attendances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from attendances
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attendances
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.AttendancesExample" >
+    delete from attendances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Attendances" >
+    insert into attendances (AttendanceID, StudentID, ClassID, 
+      SemesterID, CourseID, Situation, 
+      AttendanceTime, AttendanceDesc)
+    values (#{attendanceid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{classid,jdbcType=INTEGER}, 
+      #{semesterid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{situation,jdbcType=VARCHAR}, 
+      #{attendancetime,jdbcType=TIMESTAMP}, #{attendancedesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Attendances" >
+    insert into attendances
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attendanceid != null" >
+        AttendanceID,
+      </if>
+      <if test="studentid != null" >
+        StudentID,
+      </if>
+      <if test="classid != null" >
+        ClassID,
+      </if>
+      <if test="semesterid != null" >
+        SemesterID,
+      </if>
+      <if test="courseid != null" >
+        CourseID,
+      </if>
+      <if test="situation != null" >
+        Situation,
+      </if>
+      <if test="attendancetime != null" >
+        AttendanceTime,
+      </if>
+      <if test="attendancedesc != null" >
+        AttendanceDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attendanceid != null" >
+        #{attendanceid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="semesterid != null" >
+        #{semesterid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="situation != null" >
+        #{situation,jdbcType=VARCHAR},
+      </if>
+      <if test="attendancetime != null" >
+        #{attendancetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attendancedesc != null" >
+        #{attendancedesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.AttendancesExample" resultType="java.lang.Integer" >
+    select count(*) from attendances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update attendances
+    <set >
+      <if test="record.attendanceid != null" >
+        AttendanceID = #{record.attendanceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        StudentID = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.semesterid != null" >
+        SemesterID = #{record.semesterid,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseid != null" >
+        CourseID = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.situation != null" >
+        Situation = #{record.situation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendancetime != null" >
+        AttendanceTime = #{record.attendancetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attendancedesc != null" >
+        AttendanceDesc = #{record.attendancedesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update attendances
+    set AttendanceID = #{record.attendanceid,jdbcType=INTEGER},
+      StudentID = #{record.studentid,jdbcType=INTEGER},
+      ClassID = #{record.classid,jdbcType=INTEGER},
+      SemesterID = #{record.semesterid,jdbcType=INTEGER},
+      CourseID = #{record.courseid,jdbcType=INTEGER},
+      Situation = #{record.situation,jdbcType=VARCHAR},
+      AttendanceTime = #{record.attendancetime,jdbcType=TIMESTAMP},
+      AttendanceDesc = #{record.attendancedesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Attendances" >
+    update attendances
+    <set >
+      <if test="studentid != null" >
+        StudentID = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null" >
+        ClassID = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="semesterid != null" >
+        SemesterID = #{semesterid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        CourseID = #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="situation != null" >
+        Situation = #{situation,jdbcType=VARCHAR},
+      </if>
+      <if test="attendancetime != null" >
+        AttendanceTime = #{attendancetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attendancedesc != null" >
+        AttendanceDesc = #{attendancedesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Attendances" >
+    update attendances
+    set StudentID = #{studentid,jdbcType=INTEGER},
+      ClassID = #{classid,jdbcType=INTEGER},
+      SemesterID = #{semesterid,jdbcType=INTEGER},
+      CourseID = #{courseid,jdbcType=INTEGER},
+      Situation = #{situation,jdbcType=VARCHAR},
+      AttendanceTime = #{attendancetime,jdbcType=TIMESTAMP},
+      AttendanceDesc = #{attendancedesc,jdbcType=VARCHAR}
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.database.mapper.CoursesCustomMapper" >
+	<resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Course" >
+		<!-- 课程属性 -->
+		<id column="CourseID" property="courseid" jdbcType="INTEGER" />
+		<result column="SchoolID" property="schoolid" jdbcType="INTEGER" />
+		<result column="SemesterID" property="semesterid" jdbcType="INTEGER" />
+		<result column="CourseBookID" property="coursebookid" jdbcType="INTEGER" />
+		<result column="CourseName" property="coursename" jdbcType="VARCHAR" />
+		<result column="CourseState" property="coursestate" jdbcType="INTEGER" />
+		<!-- 扩展属性 -->
+		<result column="CourseBookName" property="coursebookname" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+		Course.CourseID, Course.SchoolID, Course.SemesterID, 
+		Course.CourseBookID, Course.CourseName, Course.CourseState
+	</sql>
+	
+	<sql id="Ex_Column_List" >
+		CourseBooks.CourseBookName
+	</sql>
+
+	<sql id="query_CourseName_where" >
+		Course.CourseBookID = CourseBooks.CourseBookID
+		
+		<if test="coursebookid != null and coursebookid!='' " >
+			and Course.CourseBookID = ${coursebookid}
+		</if>
+	</sql>
+	
+	<!-- 课程列表查询 -->
+	<select id="findCoursesCustomList" parameterType="com.xusihan.highschoolmanagementsystem.po.CoursesCustom"
+			resultType="com.xusihan.highschoolmanagementsystem.po.CoursesCustom">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Ex_Column_List" /> 
+		from course, coursebooks
+		<where>
+			<include refid="query_CourseName_where"></include>
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xusihan.highschoolmanagementsystem.students.mapper.StudentsbaseMapper" >
+  <resultMap id="BaseResultMap" type="com.xusihan.highschoolmanagementsystem.po.Studentsbase" >
+    <id column="StudentID" property="studentid" jdbcType="INTEGER" />
+    <result column="ClassID" property="classid" jdbcType="INTEGER" />
+    <result column="SchoolID" property="schoolid" jdbcType="INTEGER" />
+    <result column="StudentName" property="studentname" jdbcType="VARCHAR" />
+    <result column="NameSpell" property="namespell" jdbcType="VARCHAR" />
+    <result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="IdentityCard" property="identitycard" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Nation" property="nation" jdbcType="VARCHAR" />
+    <result column="Education" property="education" jdbcType="VARCHAR" />
+    <result column="Dwellingplace" property="dwellingplace" jdbcType="VARCHAR" />
+    <result column="Nativeplace" property="nativeplace" jdbcType="VARCHAR" />
+    <result column="Photo" property="photo" jdbcType="VARCHAR" />
+    <result column="StudentState" property="studentstate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    StudentID, ClassID, SchoolID, StudentName, NameSpell, Birthday, IdentityCard, Sex, 
+    Nation, Education, Dwellingplace, Nativeplace, Photo, StudentState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentsbaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from studentsbase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from studentsbase
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from studentsbase
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentsbaseExample" >
+    delete from studentsbase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentsbase" >
+    insert into studentsbase (StudentID, ClassID, SchoolID, 
+      StudentName, NameSpell, Birthday, 
+      IdentityCard, Sex, Nation, 
+      Education, Dwellingplace, Nativeplace, 
+      Photo, StudentState)
+    values (#{studentid,jdbcType=INTEGER}, #{classid,jdbcType=INTEGER}, #{schoolid,jdbcType=INTEGER}, 
+      #{studentname,jdbcType=VARCHAR}, #{namespell,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{identitycard,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, #{dwellingplace,jdbcType=VARCHAR}, #{nativeplace,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{studentstate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentsbase" >
+    insert into studentsbase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        StudentID,
+      </if>
+      <if test="classid != null" >
+        ClassID,
+      </if>
+      <if test="schoolid != null" >
+        SchoolID,
+      </if>
+      <if test="studentname != null" >
+        StudentName,
+      </if>
+      <if test="namespell != null" >
+        NameSpell,
+      </if>
+      <if test="birthday != null" >
+        Birthday,
+      </if>
+      <if test="identitycard != null" >
+        IdentityCard,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="nation != null" >
+        Nation,
+      </if>
+      <if test="education != null" >
+        Education,
+      </if>
+      <if test="dwellingplace != null" >
+        Dwellingplace,
+      </if>
+      <if test="nativeplace != null" >
+        Nativeplace,
+      </if>
+      <if test="photo != null" >
+        Photo,
+      </if>
+      <if test="studentstate != null" >
+        StudentState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="studentname != null" >
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="namespell != null" >
+        #{namespell,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identitycard != null" >
+        #{identitycard,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="dwellingplace != null" >
+        #{dwellingplace,jdbcType=VARCHAR},
+      </if>
+      <if test="nativeplace != null" >
+        #{nativeplace,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="studentstate != null" >
+        #{studentstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xusihan.highschoolmanagementsystem.po.StudentsbaseExample" resultType="java.lang.Integer" >
+    select count(*) from studentsbase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update studentsbase
+    <set >
+      <if test="record.studentid != null" >
+        StudentID = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolid != null" >
+        SchoolID = #{record.schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentname != null" >
+        StudentName = #{record.studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namespell != null" >
+        NameSpell = #{record.namespell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        Birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.identitycard != null" >
+        IdentityCard = #{record.identitycard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        Sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        Nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null" >
+        Education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dwellingplace != null" >
+        Dwellingplace = #{record.dwellingplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nativeplace != null" >
+        Nativeplace = #{record.nativeplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null" >
+        Photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentstate != null" >
+        StudentState = #{record.studentstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update studentsbase
+    set StudentID = #{record.studentid,jdbcType=INTEGER},
+      ClassID = #{record.classid,jdbcType=INTEGER},
+      SchoolID = #{record.schoolid,jdbcType=INTEGER},
+      StudentName = #{record.studentname,jdbcType=VARCHAR},
+      NameSpell = #{record.namespell,jdbcType=VARCHAR},
+      Birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      IdentityCard = #{record.identitycard,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=VARCHAR},
+      Nation = #{record.nation,jdbcType=VARCHAR},
+      Education = #{record.education,jdbcType=VARCHAR},
+      Dwellingplace = #{record.dwellingplace,jdbcType=VARCHAR},
+      Nativeplace = #{record.nativeplace,jdbcType=VARCHAR},
+      Photo = #{record.photo,jdbcType=VARCHAR},
+      StudentState = #{record.studentstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentsbase" >
+    update studentsbase
+    <set >
+      <if test="classid != null" >
+        ClassID = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null" >
+        SchoolID = #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="studentname != null" >
+        StudentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="namespell != null" >
+        NameSpell = #{namespell,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        Birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identitycard != null" >
+        IdentityCard = #{identitycard,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        Nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        Education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="dwellingplace != null" >
+        Dwellingplace = #{dwellingplace,jdbcType=VARCHAR},
+      </if>
+      <if test="nativeplace != null" >
+        Nativeplace = #{nativeplace,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        Photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="studentstate != null" >
+        StudentState = #{studentstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xusihan.highschoolmanagementsystem.po.Studentsbase" >
+    update studentsbase
+    set ClassID = #{classid,jdbcType=INTEGER},
+      SchoolID = #{schoolid,jdbcType=INTEGER},
+      StudentName = #{studentname,jdbcType=VARCHAR},
+      NameSpell = #{namespell,jdbcType=VARCHAR},
+      Birthday = #{birthday,jdbcType=TIMESTAMP},
+      IdentityCard = #{identitycard,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Nation = #{nation,jdbcType=VARCHAR},
+      Education = #{education,jdbcType=VARCHAR},
+      Dwellingplace = #{dwellingplace,jdbcType=VARCHAR},
+      Nativeplace = #{nativeplace,jdbcType=VARCHAR},
+      Photo = #{photo,jdbcType=VARCHAR},
+      StudentState = #{studentstate,jdbcType=INTEGER}
+    where StudentID = #{studentid,jdbcType=INTEGER}
+  </update>
+</mapper>
